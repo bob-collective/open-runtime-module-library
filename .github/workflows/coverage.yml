@@ -19,6 +19,8 @@ env:
 jobs:
   test:
     name: Coverage Report
+    # SAF-0002: do not run untrusted fork-PR code on the shared self-hosted runner fleet
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: [self-hosted]
     steps:
       - name: Cancel Previous Runs
